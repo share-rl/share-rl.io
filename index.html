@@ -2,133 +2,389 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SHaRe-RL</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SHaRe-RL project page: structured, interactive reinforcement learning for contact-rich industrial assembly tasks.">
+  <title>SHaRe-RL</title>
   <style>
     :root {
-      --primary: #2c3e50;
-      --accent: #3498db;
+      --ink: #1b2430;
+      --muted: #596674;
+      --line: #d8dee7;
+      --paper: #fbfbfa;
+      --surface: #ffffff;
+      --accent: #b8232f;
+      --accent-dark: #801822;
+      --steel: #2e5266;
+      --shadow: 0 14px 36px rgba(27, 36, 48, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      padding: 40px 20px;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fdfdfd;
-      color: var(--primary);
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.62;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 0.5em;
-      font-size: 2.2em;
+    a {
+      color: inherit;
     }
 
-    h3 {
-      color: var(--accent);
-      margin-bottom: 0.4em;
-    }
-
-    p.subtitle {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 2em;
-      font-size: 1.15em;
-      color: #555;
-    }
-
-    .container {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      max-width: 1200px;
+    .page {
+      width: min(1120px, calc(100% - 36px));
       margin: 0 auto;
     }
 
-    .column {
-      flex: 1 1 300px;
-      max-width: 360px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.06);
-    }
-
-    img, video {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-
-    .footer {
+    header {
+      padding: 56px 0 38px;
       text-align: center;
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #999;
+      border-bottom: 1px solid var(--line);
     }
 
-    @media (max-width: 900px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
+    h1 {
+      margin: 0 auto 14px;
+      max-width: 980px;
+      font-size: clamp(2.05rem, 5vw, 4.15rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 750;
+    }
+
+    .tagline {
+      margin: 0 auto 20px;
+      max-width: 880px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 2vw, 1.28rem);
+    }
+
+    .authors,
+    .affiliations {
+      margin: 0 auto;
+      max-width: 880px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .authors {
+      color: var(--ink);
+      font-weight: 550;
+    }
+
+    .authors sup,
+    .affiliations sup {
+      font-size: 0.7em;
+      line-height: 0;
+      vertical-align: super;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(27, 36, 48, 0.15);
+    }
+
+    .button.secondary {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    main {
+      padding: 40px 0 56px;
+    }
+
+    section {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .abstract-copy p + p,
+    .section-copy p + p {
+      margin-top: 12px;
+    }
+
+    .figure {
+      margin: 0;
+    }
+
+    .figure img,
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .figure img {
+      padding: 12px;
+      object-fit: contain;
+    }
+
+    .figure figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.42fr) minmax(0, 0.58fr);
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .result-figure img {
+      max-height: 620px;
+    }
+
+    .plot-figure img {
+      max-height: 520px;
+    }
+
+    .media-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .media-row.single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      font: 0.92rem/1.55 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    video {
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    footer {
+      padding: 20px 0 42px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        width: min(100% - 24px, 700px);
       }
 
-      .column {
-        max-width: 90%;
+      header {
+        padding-top: 34px;
+      }
+
+      main {
+        padding-top: 22px;
+      }
+
+      section {
+        padding: 28px 0;
+      }
+
+      .intro-grid,
+      .section-head,
+      .media-row {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        gap: 10px;
+      }
+
+      .button {
+        flex: 1 1 170px;
       }
     }
   </style>
 </head>
 <body>
-
-  <h1>SHaRe-RL</h1>
-  <p class="subtitle">
-    Structured, Human-in-the-Loop Reinforcement Learning for Contact-Rich Industrial Assembly Tasks
-  </p>
-
-  <div class="container">
-
-    <div class="column">
-      <h3>Abstract</h3>
-      <p>
-        We present SHaRe-RL, a reinforcement learning
-        framework that leverages multiple sources of prior knowledge.
-        By (i) structuring skills into manipulation primitives, (ii)
-        incorporating human demonstrations and online corrections,
-        and (iii) bounding interaction forces with per-axis compliance,
-        SHaRe-RL enables efficient and safe online learning for long-
-        horizon, contact-rich industrial assembly tasks. Experiments
-        on the insertion of industrial Harting connector modules with
-        0.2–0.4 mm clearance demonstrate that SHaRe-RL achieves
-        reliable performance within practical time budgets. Our results
-        show that process expertise, without requiring robotics or RL
-        knowledge, can meaningfully contribute to learning, enabling
-        safer, more robust, and more economically viable deployment
-        of RL for industrial assembly.
+  <div class="page">
+    <header>
+      <h1>SHaRe-RL</h1>
+      <p class="tagline">Structured, Interactive Reinforcement Learning for Contact-Rich Industrial Assembly Tasks</p>
+      <p class="authors">
+        Jannick Stranghöner<sup>1</sup>,
+        Philipp Hartmann<sup>1</sup>,
+        Lisa-Marie Weigelt<sup>1</sup>,
+        Marco Braun<sup>1,2</sup>,
+        Sebastian Wrede<sup>1,2</sup>,
+        Klaus Neumann<sup>1,2</sup>
       </p>
-    </div>
+      <p class="affiliations">
+        <sup>1</sup>Bielefeld University&nbsp;&nbsp;
+        <sup>2</sup>Fraunhofer IOSB-INA
+      </p>
+      <nav class="actions" aria-label="Project links">
+        <a class="button" href="https://arxiv.org/pdf/2509.13949" target="_blank" rel="noopener">Paper</a>
+        <a class="button secondary" href="https://github.com/ubi-coro/share-rl" target="_blank" rel="noopener">Code</a>
+      </nav>
+    </header>
 
-    <div class="column">
-      <h3>Visual Abstract</h3>
-      <img src="visual_abstract.png" alt="Visual abstract for SHaRe-RL">
-    </div>
+    <main>
+      <section aria-labelledby="abstract-title">
+        <div class="intro-grid">
+          <div class="abstract-copy">
+            <h2 id="abstract-title">Abstract</h2>
+            <p>
+              SHaRe-RL brings real-world reinforcement learning into contact-rich industrial assembly by combining structured manipulation primitives, human demonstrations and online corrections, and per-axis compliance for bounded interaction forces.
+            </p>
+            <p>
+              On Harting connector insertion with 0.2-0.4 mm clearance, the method learns reliable policies within a practical wall-clock budget, improves over an unstructured human-in-the-loop RL baseline, and transfers to unseen connector variants.
+            </p>
+          </div>
+          <figure class="figure">
+            <img src="img/visual_abstract_v2.png" alt="Visual abstract showing the SHaRe-RL framework for structured, interactive robot learning.">
+          </figure>
+        </div>
+      </section>
 
-    <div class="column">
-      <h3>Video</h3>
-      <video controls preload="metadata" poster="visual_abstract.png">
-        <source src="share_rl_demo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+      <section aria-labelledby="results-title">
+        <div class="section-head">
+          <div>
+            <h2 id="results-title">Main Results</h2>
+            <div class="section-copy">
+              <p>
+                SHaRe-RL reaches robust insertion performance in under three hours of real-world interaction while keeping exploration focused on meaningful task subspaces.
+              </p>
+              <p>
+                Structured primitives, demonstrations, interventions, and adaptive compliance together yield faster and more reliable learning than the unstructured baseline.
+              </p>
+            </div>
+          </div>
+          <figure class="figure result-figure">
+            <img src="img/main_v2_transparent.png" alt="Main SHaRe-RL quantitative results.">
+          </figure>
+        </div>
+        <div class="media-row single">
+          <figure class="figure">
+            <video controls preload="metadata" playsinline>
+              <source src="img/train.mp4" type="video/mp4">
+            </video>
+            <figcaption>Training on the contact-rich connector insertion task.</figcaption>
+          </figure>
+        </div>
+      </section>
 
+      <section aria-labelledby="generalization-title">
+        <div class="section-head">
+          <div>
+            <h2 id="generalization-title">Zero-Shot Generalization</h2>
+            <div class="section-copy">
+              <p>
+                The learned policy transfers to previously unseen connector variants without additional environment interaction.
+              </p>
+              <p>
+                This zero-shot behavior suggests that the structured task representation captures reusable assembly knowledge instead of overfitting to a single part geometry.
+              </p>
+            </div>
+          </div>
+          <figure class="figure plot-figure">
+            <img src="img/generalization_bar_transparent.png" alt="Generalization plot for unseen connector variants.">
+          </figure>
+        </div>
+        <div class="media-row">
+          <figure class="figure">
+            <video controls preload="metadata" playsinline>
+              <source src="img/zero-shot%201.mp4" type="video/mp4">
+            </video>
+            <figcaption>Zero-shot insertion on unseen connector variant 1.</figcaption>
+          </figure>
+          <figure class="figure">
+            <video controls preload="metadata" playsinline>
+              <source src="img/zero-shot%202.mp4" type="video/mp4">
+            </video>
+            <figcaption>Zero-shot insertion on unseen connector variant 2.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="bibtex-title">
+        <h2 id="bibtex-title">BibTeX</h2>
+        <pre><code>@misc{stranghoener2025sharerl,
+  title = {SHaRe-RL: Structured, Interactive Reinforcement Learning for Contact-Rich Industrial Assembly Tasks},
+  author = {Strangh{\"o}ner, Jannick and Hartmann, Philipp and Weigelt, Lisa-Marie and Braun, Marco and Wrede, Sebastian and Neumann, Klaus},
+  year = {2025},
+  eprint = {2509.13949},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.RO},
+  doi = {10.48550/arXiv.2509.13949},
+  url = {https://arxiv.org/abs/2509.13949}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      SHaRe-RL project page.
+    </footer>
   </div>
-
-  <div class="footer">
-    Anonymous Project Page for Double-Blind Review — ICRA 2026 Submission
-  </div>
-
 </body>
 </html>
