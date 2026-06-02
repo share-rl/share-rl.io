@@ -144,6 +144,13 @@
       letter-spacing: 0;
     }
 
+    .takeaway-title {
+      max-width: 560px;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+
     p {
       margin: 0;
       color: var(--muted);
@@ -263,9 +270,11 @@
     }
 
     .media-row.generalization-videos {
-      max-width: 960px;
-      margin-right: auto;
-      margin-left: auto;
+      width: 100%;
+    }
+
+    .inline-video {
+      margin-top: 24px;
     }
 
     pre {
@@ -404,17 +413,11 @@
       <section aria-labelledby="abstract-title">
         <div class="intro-grid">
           <div class="abstract-copy">
-            <h2 id="abstract-title">Structure the Task, Then Let RL Improve It</h2>
-            <p>
-              SHaRe-RL brings real-world reinforcement learning into contact-rich industrial assembly by combining structured manipulation primitives, human demonstrations and online corrections, and per-axis compliance for bounded interaction forces.
-            </p>
-            <p>
-              On a tight tolerance insertion task, SHaRe-RL learns reliable policies within a practical wall-clock budget, improves over an unstructured human-in-the-loop RL baseline, and transfers to unseen connector variants.
-            </p>
+            <h2 id="abstract-title" class="takeaway-title">Structure the Task, Then Let RL Improve It</h2>
             <ul class="framing-list">
               <li>We combine priors readily available in industry with sample-efficient off-policy RL, and show that the two are synergistic.</li>
-              <li>The method links recent advances in RL with established robotics formalisms for task frames, manipulation primitives, and compliant control.</li>
-              <li>Domain experts can guide online learning through demonstrations and corrections without ML or robotics expertise.</li>
+              <li>As such, SHaRe-RL serves as a bridge between recent advances in RL and well established robotics formalisms for task frames, manipulation primitives, and compliant control.</li>
+              <li>This enables domain experts to guide online learning without robot learning expertise.</li>
             </ul>
           </div>
           <figure class="figure">
@@ -429,25 +432,25 @@
             <h2 id="results-title">Main Results</h2>
             <div class="section-copy">
               <p>
-                On the real connector insertion task, structure changes what online RL can learn within a practical time budget.
+                On a challenging tight tolerance insertion task, structure changes what online RL can learn within a practical wall-clock budget.
               </p>
               <ul class="framing-list">
                 <li>SHaRe-RL reaches robust insertion performance in under three hours of real-world interaction.</li>
-                <li>The unstructured HIL-SERL baseline does not reach the same level of performance within our time budget.</li>
-                <li>Behavioral cloning is bounded by the suboptimality of the demonstrator, while RL can improve through its own experience.</li>
+                <li>The unstructured HIL-SERL baseline does not reach the same level of performance within the considered time budget.</li>
+                <li>Behavioral cloning is bounded by the suboptimality of the demonstrator, while RL improves through its own experience and eventually surpasses the demonstrator cycle time.</li>
+                <li>We ensure safety during exploration through a simple mechanism that bounds contact forces while preserving free-space dynamics.</li>
+                
               </ul>
             </div>
+            <figure class="figure inline-video">
+              <video controls preload="metadata" playsinline>
+                <source src="img/train.mp4" type="video/mp4">
+              </video>
+              <figcaption>Training on the contact-rich connector insertion task.</figcaption>
+            </figure>
           </div>
           <figure class="figure result-figure">
             <img src="img/main_v2_transparent.png" alt="Main SHaRe-RL quantitative results.">
-          </figure>
-        </div>
-        <div class="media-row single">
-          <figure class="figure">
-            <video controls preload="metadata" playsinline>
-              <source src="img/train.mp4" type="video/mp4">
-            </video>
-            <figcaption>Training on the contact-rich connector insertion task.</figcaption>
           </figure>
         </div>
       </section>
