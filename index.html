@@ -28,6 +28,7 @@
       color: var(--ink);
       background: var(--paper);
       line-height: 1.62;
+      overflow-x: hidden;
     }
 
     a {
@@ -35,7 +36,8 @@
     }
 
     .page {
-      width: min(1120px, calc(100% - 36px));
+      width: calc(100vw - 36px);
+      max-width: 1120px;
       margin: 0 auto;
     }
 
@@ -62,7 +64,8 @@
     }
 
     .authors,
-    .affiliations {
+    .affiliations,
+    .venue {
       margin: 0 auto;
       max-width: 880px;
       color: var(--muted);
@@ -72,6 +75,12 @@
     .authors {
       color: var(--ink);
       font-weight: 550;
+    }
+
+    .venue {
+      margin-top: 12px;
+      color: var(--accent-dark);
+      font-weight: 700;
     }
 
     .authors sup,
@@ -148,9 +157,41 @@
       align-items: center;
     }
 
+    .intro-grid > *,
+    .section-head > *,
+    .media-row > * {
+      min-width: 0;
+    }
+
     .abstract-copy p + p,
     .section-copy p + p {
       margin-top: 12px;
+    }
+
+    .framing-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .framing-list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 1.01rem;
+    }
+
+    .framing-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
     }
 
     .figure {
@@ -182,18 +223,28 @@
 
     .section-head {
       display: grid;
-      grid-template-columns: minmax(240px, 0.42fr) minmax(0, 0.58fr);
-      gap: 28px;
+      grid-template-columns: minmax(280px, 0.52fr) minmax(280px, 0.48fr);
+      gap: 34px;
       align-items: start;
       margin-bottom: 24px;
     }
 
+    .section-head.compact-figure {
+      grid-template-columns: minmax(340px, 1fr) minmax(320px, 500px);
+    }
+
     .result-figure img {
-      max-height: 620px;
+      width: auto;
+      max-width: 100%;
+      max-height: 560px;
+      margin: 0 auto;
     }
 
     .plot-figure img {
-      max-height: 520px;
+      width: auto;
+      max-width: 100%;
+      max-height: 430px;
+      margin: 0 auto;
     }
 
     .media-row {
@@ -206,6 +257,15 @@
 
     .media-row.single {
       grid-template-columns: minmax(0, 1fr);
+      max-width: 780px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .media-row.generalization-videos {
+      max-width: 960px;
+      margin-right: auto;
+      margin-left: auto;
     }
 
     pre {
@@ -235,7 +295,9 @@
 
     @media (max-width: 860px) {
       .page {
-        width: min(100% - 24px, 700px);
+        width: 100vw;
+        max-width: 700px;
+        padding: 0 12px;
       }
 
       header {
@@ -252,6 +314,7 @@
 
       .intro-grid,
       .section-head,
+      .section-head.compact-figure,
       .media-row {
         grid-template-columns: 1fr;
       }
@@ -261,8 +324,55 @@
       }
 
       .button {
-        flex: 1 1 170px;
+        flex: 1 1 150px;
       }
+
+      header,
+      main,
+      section,
+      .intro-grid,
+      .section-head,
+      .media-row,
+      .figure {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      h1,
+      h2,
+      p,
+      li,
+      .authors,
+      .affiliations,
+      .venue,
+      .tagline {
+        overflow-wrap: anywhere;
+      }
+
+      .figure img,
+      .result-figure img,
+      .plot-figure img,
+      video {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        max-width: 100vw;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
     }
   </style>
 </head>
@@ -283,6 +393,7 @@
         <sup>1</sup>Bielefeld University&nbsp;&nbsp;
         <sup>2</sup>Fraunhofer IOSB-INA
       </p>
+      <p class="venue">Accepted to IEEE International Conference on Robotics and Automation (ICRA) 2026</p>
       <nav class="actions" aria-label="Project links">
         <a class="button" href="https://arxiv.org/pdf/2509.13949" target="_blank" rel="noopener">Paper</a>
         <a class="button secondary" href="https://github.com/ubi-coro/share-rl" target="_blank" rel="noopener">Code</a>
@@ -293,13 +404,18 @@
       <section aria-labelledby="abstract-title">
         <div class="intro-grid">
           <div class="abstract-copy">
-            <h2 id="abstract-title">Abstract</h2>
+            <h2 id="abstract-title">Structure the Task, Then Let RL Improve It</h2>
             <p>
               SHaRe-RL brings real-world reinforcement learning into contact-rich industrial assembly by combining structured manipulation primitives, human demonstrations and online corrections, and per-axis compliance for bounded interaction forces.
             </p>
             <p>
-              On Harting connector insertion with 0.2-0.4 mm clearance, the method learns reliable policies within a practical wall-clock budget, improves over an unstructured human-in-the-loop RL baseline, and transfers to unseen connector variants.
+              On a tight tolerance insertion task, SHaRe-RL learns reliable policies within a practical wall-clock budget, improves over an unstructured human-in-the-loop RL baseline, and transfers to unseen connector variants.
             </p>
+            <ul class="framing-list">
+              <li>We combine priors readily available in industry with sample-efficient off-policy RL, and show that the two are synergistic.</li>
+              <li>The method links recent advances in RL with established robotics formalisms for task frames, manipulation primitives, and compliant control.</li>
+              <li>Domain experts can guide online learning through demonstrations and corrections without ML or robotics expertise.</li>
+            </ul>
           </div>
           <figure class="figure">
             <img src="img/visual_abstract_v2.png" alt="Visual abstract showing the SHaRe-RL framework for structured, interactive robot learning.">
@@ -308,16 +424,18 @@
       </section>
 
       <section aria-labelledby="results-title">
-        <div class="section-head">
+        <div class="section-head compact-figure">
           <div>
             <h2 id="results-title">Main Results</h2>
             <div class="section-copy">
               <p>
-                SHaRe-RL reaches robust insertion performance in under three hours of real-world interaction while keeping exploration focused on meaningful task subspaces.
+                On the real connector insertion task, structure changes what online RL can learn within a practical time budget.
               </p>
-              <p>
-                Structured primitives, demonstrations, interventions, and adaptive compliance together yield faster and more reliable learning than the unstructured baseline.
-              </p>
+              <ul class="framing-list">
+                <li>SHaRe-RL reaches robust insertion performance in under three hours of real-world interaction.</li>
+                <li>The unstructured HIL-SERL baseline does not reach the same level of performance within our time budget.</li>
+                <li>Behavioral cloning is bounded by the suboptimality of the demonstrator, while RL can improve through its own experience.</li>
+              </ul>
             </div>
           </div>
           <figure class="figure result-figure">
@@ -351,7 +469,7 @@
             <img src="img/generalization_bar_transparent.png" alt="Generalization plot for unseen connector variants.">
           </figure>
         </div>
-        <div class="media-row">
+        <div class="media-row generalization-videos">
           <figure class="figure">
             <video controls preload="metadata" playsinline>
               <source src="img/zero-shot%201.mp4" type="video/mp4">
@@ -377,7 +495,8 @@
   archivePrefix = {arXiv},
   primaryClass = {cs.RO},
   doi = {10.48550/arXiv.2509.13949},
-  url = {https://arxiv.org/abs/2509.13949}
+  url = {https://arxiv.org/abs/2509.13949},
+  note = {Accepted to IEEE International Conference on Robotics and Automation (ICRA) 2026}
 }</code></pre>
       </section>
     </main>
